@@ -98,7 +98,7 @@ MonoBehaviour:
   weaponBulletSpeed: 50
   timeToReload: 0
   weaponDamage: 10
-  magCapacity: 50
+  magCapacity: 500
   bulletLeft: 0
   shooter: {fileID: 0}
 --- !u!114 &5452732225369986410

@@ -542,7 +542,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shooter: {fileID: 325391824245208194}
-  cumulativeRewardText: {fileID: 9019014981529920919}
+  shooter2: {fileID: 0}
+  cumulativeRewardText: {fileID: 0}
+  cumulativeRewardText2: {fileID: 0}
+  cumulativeRewardTextRew: {fileID: 9019014981529920919}
+  cumulativeRewardTextRew2: {fileID: 0}
   targetPrefab: {fileID: 6629307386622338983, guid: a8707d3591484f94b887f39e83dc1ec7,
     type: 3}
   spawnAreas:
@@ -550,6 +554,7 @@ MonoBehaviour:
   - {fileID: 2426283300419775273}
   - {fileID: 5729470321419859199}
   - {fileID: 5396765040766211848}
+  selfPlay: 0
   targetsCount: 0
 --- !u!1 &8646489411568967371
 GameObject:

@@ -48,9 +48,9 @@ MonoBehaviour:
   m_DetectableTags:
   - enemy
   - Untagged
-  m_RaysPerDirection: 3
-  m_MaxRayDegrees: 60
-  m_SphereCastRadius: 0.4
+  m_RaysPerDirection: 5
+  m_MaxRayDegrees: 160
+  m_SphereCastRadius: 0.5
   m_RayLength: 20
   m_RayLayerMask:
     serializedVersion: 2
@@ -58,8 +58,8 @@ MonoBehaviour:
   m_ObservationStacks: 1
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
-  m_StartVerticalOffset: 0
-  m_EndVerticalOffset: 0
+  m_StartVerticalOffset: 2
+  m_EndVerticalOffset: 2
 --- !u!114 &4312356501098666944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 4152507531061134637}
   m_Layer: 0
   m_Name: ShooterAgent
-  m_TagString: Untagged
+  m_TagString: blueAgent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -205,18 +205,18 @@ MonoBehaviour:
   m_DetectableTags:
   - enemy
   - Untagged
-  m_RaysPerDirection: 3
-  m_MaxRayDegrees: 60
-  m_SphereCastRadius: 0.4
-  m_RayLength: 20
+  m_RaysPerDirection: 5
+  m_MaxRayDegrees: 160
+  m_SphereCastRadius: 0.5
+  m_RayLength: 30
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 4294967291
   m_ObservationStacks: 1
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
-  m_StartVerticalOffset: 0
-  m_EndVerticalOffset: 0
+  m_StartVerticalOffset: 0.5
+  m_EndVerticalOffset: 0.5
 --- !u!114 &30317049192690654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,13 +232,13 @@ MonoBehaviour:
   m_BrainParameters:
     VectorObservationSize: 6
     NumStackedVectorObservations: 1
-    VectorActionSize: 03000000030000000300000002000000
+    VectorActionSize: 030000000300000003000000020000000300000003000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
-  m_BehaviorName: ShooterLearning
+  m_BehaviorName: ShooterLearning2
   TeamId: 0
   m_UseChildSensors: 1
 --- !u!114 &4323321342630984077
@@ -272,11 +272,12 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 5000
   moveSpeed: 5
-  turnSpeed: 180
-  upRotateSpeed: 180
+  turnSpeed: 45
+  upRotateSpeed: 30
   aimSpeed: 5
   weaponHeld: {fileID: 1470633602543661810}
   scaner: {fileID: 2038012797315711727}
+  health: 100
 --- !u!1001 &774971099704377150
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -292,7 +293,7 @@ PrefabInstance:
     - target: {fileID: 6283592560369362601, guid: 77ad71d390350c2468f70ad1fa152627,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.555
+      value: 0.65
       objectReference: {fileID: 0}
     - target: {fileID: 6283592560369362601, guid: 77ad71d390350c2468f70ad1fa152627,
         type: 3}
@@ -302,7 +303,7 @@ PrefabInstance:
     - target: {fileID: 6283592560369362601, guid: 77ad71d390350c2468f70ad1fa152627,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.27
       objectReference: {fileID: 0}
     - target: {fileID: 6283592560369362601, guid: 77ad71d390350c2468f70ad1fa152627,
         type: 3}
@@ -348,6 +349,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pistol
+      objectReference: {fileID: 0}
+    - target: {fileID: 9109658590079479267, guid: 77ad71d390350c2468f70ad1fa152627,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77ad71d390350c2468f70ad1fa152627, type: 3}

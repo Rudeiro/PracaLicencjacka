@@ -38,12 +38,14 @@ public class Bullet : MonoBehaviour
     {
         if (other.transform.CompareTag("enemy"))
         {
+            //Debug.LogError("hit");
             other.gameObject.GetComponent<Target>().DealDamage(bulletDamage, bulletOwner);
             Destroy(transform.gameObject);
         }
         if (other.transform.CompareTag("Untagged"))
         {
-            bulletOwner.AddReward(-0.005f);
+            // bulletOwner.AddReward(-0.05f);
+            bulletOwner.AddReward(-bulletOwner.m_ResetParams.GetWithDefault("miss_penalty", 0.05f));
             Destroy(transform.gameObject);
         }
 

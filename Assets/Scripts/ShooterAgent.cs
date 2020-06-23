@@ -21,8 +21,10 @@ public class ShooterAgent : Agent
     GameObject scaner;
     [SerializeField]
     int health; 
+
     new private Rigidbody rigidbody;
     private WorldArea worldArea;
+    int movementEnabled;
 
     public EnvironmentParameters m_ResetParams;
 
@@ -83,7 +85,7 @@ public class ShooterAgent : Agent
         }
 
         //moving forward and backwards
-        /*if (vectorAction[4] == 1f)
+        if (vectorAction[4] == 1f)
         {
             forwardAmount = 1f;
             //Debug.LogError("move forward");
@@ -92,20 +94,21 @@ public class ShooterAgent : Agent
         {
             //Debug.LogError("move backwards");
             forwardAmount = -0.5f;
-        }*/
+        }
 
         //moving left and right
-        /*if (vectorAction[5] == 1f)
+        if (vectorAction[5] == 1f)
         {
             sideAmount = -0.5f;
         }
         else if (vectorAction[5] == 2f)
         {
             sideAmount = 0.5f;
-        }*/
+        }
 
+        forwardAmount *= movementEnabled;
+        sideAmount *= movementEnabled;
 
-        
         // Apply movement
         rigidbody.MovePosition(transform.position + (transform.forward * forwardAmount * moveSpeed + transform.right * sideAmount * moveSpeed )* Time.fixedDeltaTime);
         //rigidbody.MovePosition(transform.position * Time.fixedDeltaTime);
@@ -200,6 +203,7 @@ public class ShooterAgent : Agent
 
     public override void OnEpisodeBegin()
     {
+        movementEnabled = (int)m_ResetParams.GetWithDefault("movement_enabled", 1);
         worldArea.ResetArea();
         weaponHeld.weaponDamage = (int)m_ResetParams.GetWithDefault("weapon_damage", 10);
         weaponHeld.WeaponReset();

@@ -22,6 +22,8 @@ public class WorldArea : MonoBehaviour
     List<SpawnArea> spawnAreas;
     [SerializeField]
     bool selfPlay;
+    [SerializeField]
+    List<Room> rooms;
     private Target target;
 
     public int targetsCount;
@@ -30,8 +32,17 @@ public class WorldArea : MonoBehaviour
 
     public void ResetArea()
     {
-        targetsCount = 4;
-        shooter.transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
+        targetsCount = 0;
+        for(int i = 0; i < rooms.Count; i++)
+        {
+            if(i < shooter.m_ResetParams.GetWithDefault("rooms_unlocked", 1))
+            {
+                rooms[i].gameObject.SetActive(true);
+                rooms[i].ResetRoom();
+                targetsCount += rooms[i].TargetsCount;
+            }
+        }
+        shooter.transform.position = new Vector3(transform.position.x - 20, transform.position.y + 0.5f, transform.position.z + 20);
        /* foreach (var spawnArea in spawnAreas)
         {
             spawnArea.ResetSpawnArea();

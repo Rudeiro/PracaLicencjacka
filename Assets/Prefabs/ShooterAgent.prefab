@@ -47,6 +47,7 @@ MonoBehaviour:
   m_SensorName: Scaner
   m_DetectableTags:
   - enemy
+  - door
   - Untagged
   m_RaysPerDirection: 5
   m_MaxRayDegrees: 160
@@ -204,6 +205,7 @@ MonoBehaviour:
   m_SensorName: RayPerceptionSensor
   m_DetectableTags:
   - enemy
+  - door
   - Untagged
   m_RaysPerDirection: 5
   m_MaxRayDegrees: 160
@@ -232,7 +234,7 @@ MonoBehaviour:
   m_BrainParameters:
     VectorObservationSize: 6
     NumStackedVectorObservations: 1
-    VectorActionSize: 030000000300000003000000020000000300000003000000
+    VectorActionSize: 03000000030000000300000002000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
   m_Model: {fileID: 0}
@@ -270,7 +272,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 5000
+  MaxStep: 10000
   moveSpeed: 5
   turnSpeed: 45
   upRotateSpeed: 30

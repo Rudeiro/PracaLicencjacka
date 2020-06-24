@@ -76,8 +76,17 @@ public class Weapon : MonoBehaviour
             }
         }
         bullets = new List<Bullet>();
-        bulletLeft = magCapacity;
+        //bulletLeft = magCapacity;
+        bulletLeft = (int)shooter.m_ResetParams.GetWithDefault("bullets_count", 50);
         readyToShoot = true;
         reloadingTime = timeToReload;
     }
+
+    /*private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("blueAgent"))
+        {
+            other.GetComponent<ShooterAgent>().EquipWeapon(this);
+        }
+    }*/
 }

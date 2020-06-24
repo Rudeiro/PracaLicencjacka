@@ -96,7 +96,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 5324897095049388357, guid: 4e13ca2dce66c2f4ab8babd0e484e3ab,
     type: 3}
   weaponBulletSpeed: 50
-  timeToReload: 0
+  timeToReload: 0.5
   weaponDamage: 10
   magCapacity: 500
   bulletLeft: 0
@@ -116,6 +116,7 @@ MonoBehaviour:
   m_SensorName: RayPerceptionSensor2
   m_DetectableTags:
   - enemy
+  - door
   - Untagged
   m_RaysPerDirection: 2
   m_MaxRayDegrees: 40

@@ -27,9 +27,9 @@ public class SpawnArea : MonoBehaviour
         {
             targetSize = GetComponentInParent<Room>().WorldArea.shooter.m_ResetParams.GetWithDefault("target_size", 1f);
             float x = UnityEngine.Random.Range((int)xRange.x, (int)xRange.y) + transform.position.x;
-            float y = UnityEngine.Random.Range((int)yRange.x, (int)yRange.y) + transform.position.y;
+            //float y = UnityEngine.Random.Range((int)yRange.x, (int)yRange.y) + transform.position.y;
             float z = UnityEngine.Random.Range((int)zRange.x, (int)zRange.y) + transform.position.z;
-            targets.Add(Instantiate(targetPrefab, new Vector3(x, y, z), Quaternion.identity));
+            targets.Add(Instantiate(targetPrefab, new Vector3(x, targetSize/2, z), Quaternion.identity));
             targets[i].gameObject.transform.localScale = new Vector3(targetSize, targetSize, targetSize);
             targets[i].gameObject.transform.parent = transform.parent.transform.parent;
         }

@@ -48,63 +48,57 @@ public class ShooterAgent : Agent
         float scanerRotation = 0f;
         float sideAmount = 0f;
 
-        //rotating agent
-        if (vectorAction[0] == 1f)
-        {
-            turnAmount = -1f;
-        }
-        else if (vectorAction[0] == 2f)
-        {
-            turnAmount = 1f;
-        }
-
-        //rotating weapon up and down
-        if (vectorAction[1] == 1f)
-        {
-            upRotateAmount = -1f;
-        }
-        else if (vectorAction[1] == 2f)
-        {
-            upRotateAmount = 1f;
-        }
-
-        //rotating agents rayPerception3d
-       /* if (vectorAction[2] == 1f)
-        {
-            scanerRotation = -1f;
-        }
-        else if (vectorAction[2] == 2f)
-        {
-            scanerRotation = 1f;
-        }*/
-
-        //shooting
-        if (vectorAction[3] == 1f)
-        {
-            Shoot();
-        }
-
         //moving forward and backwards
-        if (vectorAction[4] == 1f)
+        if (vectorAction[0] == 1f)
         {
             forwardAmount = 1f;
             //Debug.LogError("move forward");
         }
-        else if (vectorAction[4] == 2f)
+        else if (vectorAction[0] == 2f)
         {
             //Debug.LogError("move backwards");
             forwardAmount = -0.5f;
         }
 
         //moving left and right
-        if (vectorAction[5] == 1f)
+        if (vectorAction[1] == 1f)
         {
             sideAmount = -0.5f;
         }
-        else if (vectorAction[5] == 2f)
+        else if (vectorAction[1] == 2f)
         {
             sideAmount = 0.5f;
         }
+
+        //rotating agent
+        if (vectorAction[2] == 1f)
+        {
+            turnAmount = -1f;
+        }
+        else if (vectorAction[2] == 2f)
+        {
+            turnAmount = 1f;
+        }
+
+        if (vectorAction[3] == 1f)
+        {
+            Shoot();
+        }
+
+        //rotating weapon up and down
+        /*if (vectorAction[1] == 1f)
+        {
+            upRotateAmount = -1f;
+        }
+        else if (vectorAction[1] == 2f)
+        {
+            upRotateAmount = 1f;
+        } */
+
+        //shooting
+
+
+
 
         forwardAmount *= movementEnabled;
         sideAmount *= movementEnabled;
@@ -114,7 +108,7 @@ public class ShooterAgent : Agent
         //rigidbody.MovePosition(transform.position * Time.fixedDeltaTime);
         transform.Rotate(transform.up * turnAmount * turnSpeed * Time.fixedDeltaTime);
         //sDebug.LogError(weaponHeld.transform.eulerAngles.x);
-        if (upRotateAmount > 0 && (weaponHeld.transform.eulerAngles.x < 3 || weaponHeld.transform.eulerAngles.x > 315))
+        /*if (upRotateAmount > 0 && (weaponHeld.transform.eulerAngles.x < 3 || weaponHeld.transform.eulerAngles.x > 315))
         {
 
             weaponHeld.transform.Rotate(upRotateAmount * upRotateSpeed * Time.fixedDeltaTime, 0, 0);
@@ -123,18 +117,8 @@ public class ShooterAgent : Agent
         if (upRotateAmount < 0 && (weaponHeld.transform.eulerAngles.x > 320 || weaponHeld.transform.eulerAngles.x < 5))
         {
             weaponHeld.transform.Rotate(upRotateAmount * upRotateSpeed * Time.fixedDeltaTime, 0, 0);
-        }
-
-        if (scanerRotation > 0 && (scaner.transform.eulerAngles.x < 3 || scaner.transform.eulerAngles.x > 315))
-        {
-
-            scaner.transform.Rotate(scanerRotation * upRotateSpeed * Time.fixedDeltaTime, 0, 0);
-        }
-        else
-        if (scanerRotation < 0 && (scaner.transform.eulerAngles.x > 320 || scaner.transform.eulerAngles.x < 5))
-        {
-            scaner.transform.Rotate(scanerRotation * upRotateSpeed * Time.fixedDeltaTime, 0, 0);
-        }
+        }*/
+        
 
         // Apply a tiny negative reward every step to encourage action
         AddReward(-0.0005f);
@@ -142,51 +126,53 @@ public class ShooterAgent : Agent
 
     public override void Heuristic(float[] actionsOut)
     {
-        actionsOut[0] = 0f; // rotating agent
-        actionsOut[1] = 0f; // rotating weapon
+        actionsOut[0] = 0f; // moving forward/backward
+        actionsOut[1] = 0f; // moving left/right
+        actionsOut[2] = 0f; // rotating agent
         actionsOut[3] = 0f; // shooting
-        actionsOut[4] = 0f; // moving forward and backwards
-        actionsOut[5] = 0f; // moving sideways
-        if (Input.GetKey(KeyCode.Q))
+         // moving sideways
+        if (Input.GetKey(KeyCode.W))
         {
             // move forward
             actionsOut[0] = 1f;
         }
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKey(KeyCode.S))
         {
-            // turn left
+            // move backwards
             actionsOut[0] = 2f;
         }
         
 
-        if (Input.GetKey(KeyCode.Alpha1))
+        if (Input.GetKey(KeyCode.A))
         {
-            // turn left
+            // move left
             actionsOut[1] = 1f;
         }
-        else if (Input.GetKey(KeyCode.Alpha2))
+        else if (Input.GetKey(KeyCode.D))
         {
-            // turn right
+            // move right
             actionsOut[1] = 2f;
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKey(KeyCode.Q))
+        {
+            // turn left
+            actionsOut[2] = 1f;
+        }
+        else if (Input.GetKey(KeyCode.E))
+        {
+            // turn right
+            actionsOut[2] = 2f;
+        }
+
+        if (Input.GetMouseButton(0))
         {
             actionsOut[3] = 1f;
         }
 
-        if (Input.GetKey(KeyCode.W))
-        {
-            // move forward
-            actionsOut[4] = 1f;
-        }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            // move backward
-            actionsOut[4] = 2f;
-        }
+       
 
-        if (Input.GetKey(KeyCode.A))
+        /*if (Input.GetKey(KeyCode.A))
         {
             // move left
             actionsOut[5] = 1f;
@@ -195,7 +181,7 @@ public class ShooterAgent : Agent
         {
             // move right
             actionsOut[5] = 2f;
-        }
+        }*/
 
         // Put the actions into an array and return
         //return new float[] { forwardAction, turnAction };

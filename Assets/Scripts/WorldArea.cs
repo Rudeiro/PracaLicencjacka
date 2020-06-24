@@ -35,7 +35,7 @@ public class WorldArea : MonoBehaviour
         targetsCount = 0;
         for(int i = 0; i < rooms.Count; i++)
         {
-            if(i < shooter.m_ResetParams.GetWithDefault("rooms_unlocked", 1))
+            if(i < shooter.m_ResetParams.GetWithDefault("rooms_unlocked", 9))
             {
                 rooms[i].gameObject.SetActive(true);
                 rooms[i].ResetRoom();

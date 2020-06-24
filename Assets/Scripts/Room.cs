@@ -20,7 +20,8 @@ public class Room : MonoBehaviour
     }
 
     public void ResetRoom()
-    {        
+    {
+        targetsCount = 0;
         foreach (var spawnArea in spawnAreas)
         {
             spawnArea.ResetSpawnArea();

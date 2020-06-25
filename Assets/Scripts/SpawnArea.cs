@@ -13,12 +13,12 @@ public class SpawnArea : MonoBehaviour
     [SerializeField]
     int targetsCount;
     [SerializeField]
-    Target targetPrefab;
+    GameObject targetPrefab;
 
     private float targetSize;
-    private List<Target> targets = new List<Target>();
+    private List<GameObject> targets = new List<GameObject>();
     
-    public List<Target> Targets { get { return targets; } }
+    public List<GameObject> Targets { get { return targets; } }
     public int TargetsCount { get { return targetsCount; } }
 
     private void Spawn()
@@ -44,7 +44,7 @@ public class SpawnArea : MonoBehaviour
                 Destroy(targets[i].gameObject);
             }
         }
-        targets = new List<Target>();
+        targets = new List<GameObject>();
         Spawn();
     }
 }

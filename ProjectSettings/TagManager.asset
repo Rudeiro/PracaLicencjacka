@@ -29,6 +29,7 @@ TagManager:
   - food
   - enemy
   - door
+  - pistol
   layers:
   - Default
   - TransparentFX

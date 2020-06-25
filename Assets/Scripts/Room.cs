@@ -8,6 +8,8 @@ public class Room : MonoBehaviour
     List<SpawnArea> spawnAreas;
     [SerializeField]
     WorldArea worldArea;
+    [SerializeField]
+    List<ItemSpawner> itemSpawners;
     
     private int targetsCount;
 
@@ -26,7 +28,11 @@ public class Room : MonoBehaviour
         {
             spawnArea.ResetSpawnArea();
             targetsCount += spawnArea.TargetsCount;
-        }        
+        }
+        foreach (var itemSpawner in itemSpawners)
+        {
+            itemSpawner.ResetItemSpawner();
+        }
     }
     
 }

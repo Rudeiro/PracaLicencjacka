@@ -17,8 +17,8 @@ public class Weapon : MonoBehaviour
     private float reloadingTime = 1f;
     
     public int bulletLeft;
-    [SerializeField]
-    ShooterAgent shooter;
+    
+    public ShooterAgent shooter;
 
     private List<Bullet> bullets = new List<Bullet>();
 
@@ -47,7 +47,7 @@ public class Weapon : MonoBehaviour
 
     public bool Shoot()
     {
-        if (readyToShoot)
+        if (readyToShoot )
         {
             if (bulletLeft <= 0) shooter.EndEpisode();
             else bulletLeft--;
@@ -77,6 +77,7 @@ public class Weapon : MonoBehaviour
         }
         bullets = new List<Bullet>();
         //bulletLeft = magCapacity;
+        weaponDamage = (int)shooter.m_ResetParams.GetWithDefault("weapon_damage", 10);
         bulletLeft = (int)shooter.m_ResetParams.GetWithDefault("bullets_count", 50);
         readyToShoot = true;
         reloadingTime = timeToReload;
@@ -89,4 +90,5 @@ public class Weapon : MonoBehaviour
             other.GetComponent<ShooterAgent>().EquipWeapon(this);
         }
     }*/
+    
 }

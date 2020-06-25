@@ -11,9 +11,13 @@ public class Item : MonoBehaviour
 
     [SerializeField]
     List<GameObject> itemPrefabs;
+    [SerializeField]
+    ItemType itemType;
 
     private GameObject item;    
     
+    public ItemType Type { get { return itemType; } }
+
     public void ResetItem()
     {
         if(item != null)
@@ -28,5 +32,22 @@ public class Item : MonoBehaviour
         int p = UnityEngine.Random.Range(0, itemPrefabs.Count);
         item = Instantiate(itemPrefabs[p]);
         item.transform.parent = transform;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("blueAgent"))
+        {
+            //Debug.LogError("entered");
+            other.GetComponent<ShooterAgent>().EnablePickUp(transform.gameObject, true);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("blueAgent"))
+        {
+            other.GetComponent<ShooterAgent>().EnablePickUp(null, false);
+        }
     }
 }

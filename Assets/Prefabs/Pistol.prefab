@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 5478974070231867877}
   - component: {fileID: 2209575696920776140}
   - component: {fileID: 5452732225369986410}
+  - component: {fileID: 369567126166677571}
+  - component: {fileID: 5634322064184593814}
   m_Layer: 0
   m_Name: Pistol
   m_TagString: Untagged
@@ -116,7 +118,7 @@ MonoBehaviour:
   m_SensorName: RayPerceptionSensor2
   m_DetectableTags:
   - enemy
-  - door
+  - pistol
   - Untagged
   m_RaysPerDirection: 2
   m_MaxRayDegrees: 40
@@ -130,3 +132,30 @@ MonoBehaviour:
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
   m_StartVerticalOffset: 0
   m_EndVerticalOffset: 0
+--- !u!114 &369567126166677571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9109658590079479267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1c81471e3a5dd446924658ed11e683d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemPrefabs: []
+  itemType: 0
+--- !u!65 &5634322064184593814
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9109658590079479267}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 6.183061, y: 1.9332873, z: 1}
+  m_Center: {x: -0.27850717, y: 0.4666435, z: 0}

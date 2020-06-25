@@ -18,14 +18,21 @@ public class ShooterAgent : Agent
     [SerializeField]
     Weapon weaponHeld;
     [SerializeField]
-    GameObject scaner;
+    GameObject scaner;    
     [SerializeField]
-    int health; 
+    int health;
+    [SerializeField]
+    Weapon weaponPrefab;
 
+
+    private bool hasWeapon = false;
+    public bool canPickUp;
+    public GameObject pickUpObject;
     new private Rigidbody rigidbody;
     private WorldArea worldArea;
     int movementEnabled;
 
+    
     public EnvironmentParameters m_ResetParams;
 
     public int Health { get { return health; } }
@@ -39,7 +46,8 @@ public class ShooterAgent : Agent
     }
 
     public override void OnActionReceived(float[] vectorAction)
-    {
+    {      
+
         // Convert the first action to forward movement
         float forwardAmount = 0;
         // Convert the second action to turning left or right
@@ -83,6 +91,11 @@ public class ShooterAgent : Agent
         if (vectorAction[3] == 1f)
         {
             Shoot();
+        }
+
+        if(vectorAction[4] == 1f)
+        {
+            PickUp();
         }
 
         //rotating weapon up and down
@@ -130,7 +143,8 @@ public class ShooterAgent : Agent
         actionsOut[1] = 0f; // moving left/right
         actionsOut[2] = 0f; // rotating agent
         actionsOut[3] = 0f; // shooting
-         // moving sideways
+        actionsOut[4] = 0f; // picking up objects
+        // moving sideways
         if (Input.GetKey(KeyCode.W))
         {
             // move forward
@@ -170,7 +184,12 @@ public class ShooterAgent : Agent
             actionsOut[3] = 1f;
         }
 
-       
+        if (Input.GetKey(KeyCode.F))
+        {
+            actionsOut[4] = 1f;
+        }
+
+
 
         /*if (Input.GetKey(KeyCode.A))
         {
@@ -191,8 +210,15 @@ public class ShooterAgent : Agent
     {
         movementEnabled = (int)m_ResetParams.GetWithDefault("movement_enabled", 1);
         worldArea.ResetArea();
-        weaponHeld.weaponDamage = (int)m_ResetParams.GetWithDefault("weapon_damage", 10);
-        weaponHeld.WeaponReset();
+        if (weaponHeld != null)
+        {
+            Destroy(weaponHeld.gameObject);
+            weaponHeld = null;
+        }
+        if((int)m_ResetParams.GetWithDefault("weapon_enabled", 0) == 1)
+        {
+            EquipWeapon(Instantiate(weaponPrefab));
+        }
         health = 100;
     }
 
@@ -200,14 +226,15 @@ public class ShooterAgent : Agent
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        // Direction penguin is facing (1 Vector3 = 3 values)
+        
        
         sensor.AddObservation(transform.forward);
 
-        sensor.AddObservation(weaponHeld.ReadyToShoot);
-        sensor.AddObservation(weaponHeld.TimeToReload);
-        sensor.AddObservation(weaponHeld.ReloadingTime);
-        sensor.AddObservation(weaponHeld.BulletLeft);
+        sensor.AddObservation(hasWeapon);
+        sensor.AddObservation(weaponHeld == null ? false : weaponHeld.ReadyToShoot);
+        sensor.AddObservation(weaponHeld == null ? 0 : weaponHeld.TimeToReload);
+        sensor.AddObservation(weaponHeld == null ? 0 : weaponHeld.ReloadingTime);
+        sensor.AddObservation(weaponHeld == null ? 0 :weaponHeld.BulletLeft);
 
     }
 
@@ -231,7 +258,7 @@ public class ShooterAgent : Agent
     {
         //AddReward(-0.05f);
         //AddReward(-m_ResetParams.GetWithDefault("shoot_penalty", 0.0f));
-        weaponHeld.Shoot();
+        weaponHeld?.Shoot();
     }
 
     public void DealDamage(int amount, ShooterAgent enemy)
@@ -247,6 +274,52 @@ public class ShooterAgent : Agent
             EndEpisode();
         }
 
+    }
+
+    private void PickUp()
+    {
+        
+        if (canPickUp)
+        {
+            canPickUp = false;
+            Item item = pickUpObject.GetComponent<Item>();
+            switch (item.Type)
+            {
+                case Item.ItemType.pistol:
+                    EquipWeapon(pickUpObject.GetComponent<Weapon>());
+                    
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private void EquipWeapon(Weapon weapon)
+    {
+        if(weaponHeld == null)
+        {
+            AddReward(5f);
+            ItemSpawner itemSpawner = weapon.GetComponentInParent<ItemSpawner>();
+            if (itemSpawner != null)
+            {
+                itemSpawner.Item = null;
+            }
+            weaponHeld = weapon;
+            weaponHeld.transform.parent = transform;
+            weaponHeld.transform.localPosition = new Vector3(0.65f, 0, 0.27f);
+            weaponHeld.transform.eulerAngles = transform.eulerAngles;            
+            weaponHeld.shooter = this;
+            weaponHeld.GetComponent<BoxCollider>().enabled = false;
+            weaponHeld.WeaponReset();
+            hasWeapon = true;
+        }
+    }
+
+    public void EnablePickUp(GameObject obj, bool enabled)
+    {
+        pickUpObject = obj;
+        canPickUp = enabled;
     }
 
 

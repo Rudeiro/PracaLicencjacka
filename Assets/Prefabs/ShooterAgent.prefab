@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8977496913379906106}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &779088917290873393
 MonoBehaviour:
@@ -47,7 +47,6 @@ MonoBehaviour:
   m_SensorName: Scaner
   m_DetectableTags:
   - enemy
-  - door
   - Untagged
   m_RaysPerDirection: 5
   m_MaxRayDegrees: 160
@@ -59,8 +58,8 @@ MonoBehaviour:
   m_ObservationStacks: 1
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
-  m_StartVerticalOffset: 2
-  m_EndVerticalOffset: 2
+  m_StartVerticalOffset: 0.45
+  m_EndVerticalOffset: 0.45
 --- !u!114 &4312356501098666944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,7 +108,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 6769629594330388887}
   - {fileID: 6961283326435882723}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -204,8 +202,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SensorName: RayPerceptionSensor
   m_DetectableTags:
-  - enemy
-  - door
+  - pistol
   - Untagged
   m_RaysPerDirection: 5
   m_MaxRayDegrees: 160
@@ -217,8 +214,8 @@ MonoBehaviour:
   m_ObservationStacks: 1
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
-  m_StartVerticalOffset: 0.5
-  m_EndVerticalOffset: 0.5
+  m_StartVerticalOffset: -0.25
+  m_EndVerticalOffset: -0.25
 --- !u!114 &30317049192690654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,9 +229,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 6
+    VectorObservationSize: 8
     NumStackedVectorObservations: 1
-    VectorActionSize: 03000000030000000300000002000000
+    VectorActionSize: 0300000003000000030000000200000002000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
   m_Model: {fileID: 0}
@@ -277,103 +274,10 @@ MonoBehaviour:
   turnSpeed: 45
   upRotateSpeed: 30
   aimSpeed: 5
-  weaponHeld: {fileID: 1470633602543661810}
+  weaponHeld: {fileID: 0}
   scaner: {fileID: 2038012797315711727}
   health: 100
---- !u!1001 &774971099704377150
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 8977496913379906106}
-    m_Modifications:
-    - target: {fileID: 2209575696920776140, guid: 77ad71d390350c2468f70ad1fa152627,
-        type: 3}
-      propertyPath: shooter
-      value: 
-      objectReference: {fileID: 4152507531061134637}
-    - target: {fileID: 6283592560369362601, guid: 77ad71d390350c2468f70ad1fa152627,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 6283592560369362601, guid: 77ad71d390350c2468f70ad1fa152627,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6283592560369362601, guid: 77ad71d390350c2468f70ad1fa152627,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.27
-      objectReference: {fileID: 0}
-    - target: {fileID: 6283592560369362601, guid: 77ad71d390350c2468f70ad1fa152627,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6283592560369362601, guid: 77ad71d390350c2468f70ad1fa152627,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6283592560369362601, guid: 77ad71d390350c2468f70ad1fa152627,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6283592560369362601, guid: 77ad71d390350c2468f70ad1fa152627,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6283592560369362601, guid: 77ad71d390350c2468f70ad1fa152627,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6283592560369362601, guid: 77ad71d390350c2468f70ad1fa152627,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6283592560369362601, guid: 77ad71d390350c2468f70ad1fa152627,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6283592560369362601, guid: 77ad71d390350c2468f70ad1fa152627,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9109658590079479267, guid: 77ad71d390350c2468f70ad1fa152627,
-        type: 3}
-      propertyPath: m_Name
-      value: Pistol
-      objectReference: {fileID: 0}
-    - target: {fileID: 9109658590079479267, guid: 77ad71d390350c2468f70ad1fa152627,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 77ad71d390350c2468f70ad1fa152627, type: 3}
---- !u!4 &6769629594330388887 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6283592560369362601, guid: 77ad71d390350c2468f70ad1fa152627,
+  weaponPrefab: {fileID: 2209575696920776140, guid: 77ad71d390350c2468f70ad1fa152627,
     type: 3}
-  m_PrefabInstance: {fileID: 774971099704377150}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1470633602543661810 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2209575696920776140, guid: 77ad71d390350c2468f70ad1fa152627,
-    type: 3}
-  m_PrefabInstance: {fileID: 774971099704377150}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 498e781e17d363d479380c8b829137f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  canPickUp: 0
+  pickUpObject: {fileID: 0}

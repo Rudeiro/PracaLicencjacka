@@ -48,14 +48,14 @@ MonoBehaviour:
   m_DetectableTags:
   - enemy
   - Untagged
-  m_RaysPerDirection: 5
+  m_RaysPerDirection: 4
   m_MaxRayDegrees: 160
   m_SphereCastRadius: 0.5
   m_RayLength: 20
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 4294967291
-  m_ObservationStacks: 1
+  m_ObservationStacks: 3
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
   m_StartVerticalOffset: 0.45
@@ -204,14 +204,14 @@ MonoBehaviour:
   m_DetectableTags:
   - pistol
   - Untagged
-  m_RaysPerDirection: 5
+  m_RaysPerDirection: 4
   m_MaxRayDegrees: 160
   m_SphereCastRadius: 0.5
-  m_RayLength: 30
+  m_RayLength: 20
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 4294967291
-  m_ObservationStacks: 1
+  m_ObservationStacks: 3
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
   m_StartVerticalOffset: -0.25
@@ -252,7 +252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DecisionPeriod: 3
+  DecisionPeriod: 5
   TakeActionsBetweenDecisions: 1
 --- !u!114 &4152507531061134637
 MonoBehaviour:

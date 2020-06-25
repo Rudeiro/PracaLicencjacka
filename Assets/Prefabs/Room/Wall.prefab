@@ -47,6 +47,7 @@ MonoBehaviour:
     type: 3}
   doorPrefab: {fileID: 7345332996602124616, guid: f74da624ff6e3bf4b89a8efa10175776,
     type: 3}
-  roomSize: 10
+  roomSize: 5
   wallDirection: 0
   hasDoor: 1
+  segmentSize: 2

@@ -116,6 +116,15 @@ public class ShooterAgent : Agent
         forwardAmount *= movementEnabled;
         sideAmount *= movementEnabled;
 
+        if(forwardAmount != 0 || sideAmount != 0)
+        {
+            AddReward(-m_ResetParams.GetWithDefault("move_penalty", 0));
+        }
+        if (turnAmount != 0)
+        {
+            AddReward(-m_ResetParams.GetWithDefault("rotate_penalty", 0));
+        }
+
         // Apply movement
         rigidbody.MovePosition(transform.position + (transform.forward * forwardAmount * moveSpeed + transform.right * sideAmount * moveSpeed )* Time.fixedDeltaTime);
         //rigidbody.MovePosition(transform.position * Time.fixedDeltaTime);
@@ -134,7 +143,7 @@ public class ShooterAgent : Agent
         
 
         // Apply a tiny negative reward every step to encourage action
-        AddReward(-0.0005f);
+       // AddReward(-0.0005f);
     }
 
     public override void Heuristic(float[] actionsOut)
@@ -210,6 +219,7 @@ public class ShooterAgent : Agent
     {
         movementEnabled = (int)m_ResetParams.GetWithDefault("movement_enabled", 1);
         worldArea.ResetArea();
+        hasWeapon = false;
         if (weaponHeld != null)
         {
             Destroy(weaponHeld.gameObject);
@@ -219,6 +229,7 @@ public class ShooterAgent : Agent
         {
             EquipWeapon(Instantiate(weaponPrefab));
         }
+        
         health = 100;
     }
 
@@ -258,7 +269,10 @@ public class ShooterAgent : Agent
     {
         //AddReward(-0.05f);
         //AddReward(-m_ResetParams.GetWithDefault("shoot_penalty", 0.0f));
-        weaponHeld?.Shoot();
+        if (hasWeapon)
+        {
+            weaponHeld.Shoot();
+        }
     }
 
     public void DealDamage(int amount, ShooterAgent enemy)
@@ -307,11 +321,12 @@ public class ShooterAgent : Agent
             }
             weaponHeld = weapon;
             weaponHeld.transform.parent = transform;
-            weaponHeld.transform.localPosition = new Vector3(0.65f, 0, 0.27f);
+            weaponHeld.transform.localPosition = new Vector3(0.65f, 0, 0);
             weaponHeld.transform.eulerAngles = transform.eulerAngles;            
             weaponHeld.shooter = this;
             weaponHeld.GetComponent<BoxCollider>().enabled = false;
             weaponHeld.WeaponReset();
+            pickUpObject = null;
             hasWeapon = true;
         }
     }

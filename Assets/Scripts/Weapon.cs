@@ -47,7 +47,7 @@ public class Weapon : MonoBehaviour
 
     public bool Shoot()
     {
-        if (readyToShoot )
+        if (readyToShoot && transform != null)
         {
             if (bulletLeft <= 0) shooter.EndEpisode();
             else bulletLeft--;
@@ -78,7 +78,7 @@ public class Weapon : MonoBehaviour
         bullets = new List<Bullet>();
         //bulletLeft = magCapacity;
         weaponDamage = (int)shooter.m_ResetParams.GetWithDefault("weapon_damage", 10);
-        bulletLeft = (int)shooter.m_ResetParams.GetWithDefault("bullets_count", 50);
+        bulletLeft = (int)shooter.m_ResetParams.GetWithDefault("bullets_count", 5);
         readyToShoot = true;
         reloadingTime = timeToReload;
     }

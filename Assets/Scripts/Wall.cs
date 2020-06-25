@@ -22,6 +22,8 @@ public class Wall : MonoBehaviour
     WallDirection wallDirection;
     [SerializeField]
     bool hasDoor;
+    [SerializeField]
+    int segmentSize;
 
     private List<GameObject> wallSegments = new List<GameObject>();
     private GameObject segment;
@@ -39,21 +41,21 @@ public class Wall : MonoBehaviour
         {
             case WallDirection.North:
                 angle = 180;
-                startPosZ = roomSize - 1;
+                startPosZ = roomSize * segmentSize - segmentSize;
                 changeZ = 1;
                 break;
             case WallDirection.South:
-                startPosZ = roomSize - 1;
+                startPosZ = roomSize * segmentSize - segmentSize;
                 changeZ = 1;
                 break;
             case WallDirection.West:
                 angle = 90;
-                startPosX = roomSize - 1;
+                startPosX = roomSize * segmentSize - segmentSize;
                 changeX = 1;
                 break;
             case WallDirection.East:
                 angle = -90;
-                startPosX = roomSize - 1;
+                startPosX = roomSize * segmentSize - segmentSize;
                 changeX = 1;
                 break;
             default:
@@ -64,17 +66,17 @@ public class Wall : MonoBehaviour
         {
             if(i == doorPlacement && hasDoor)
             {
-                segment = Instantiate(doorPrefab, new Vector3(transform.position.x + startPosX - i * changeX * 2,
+                segment = Instantiate(doorPrefab, new Vector3(transform.position.x + startPosX - i * changeX * segmentSize * 2,
                                                               transform.position.y,
-                                                              transform.position.z + startPosZ - i * changeZ * 2), Quaternion.identity);
+                                                              transform.position.z + startPosZ - i * changeZ * segmentSize * 2), Quaternion.identity);
                 segment.transform.parent = transform;
                 segment.transform.Rotate(0, angle, 0);
             }
             else
             {
-                segment = Instantiate(wallSegmentPrefab, new Vector3(transform.position.x + startPosX - i * changeX * 2,
+                segment = Instantiate(wallSegmentPrefab, new Vector3(transform.position.x + startPosX - i * segmentSize * changeX * 2,
                                                               transform.position.y,
-                                                              transform.position.z + startPosZ - i * changeZ * 2), Quaternion.identity);
+                                                              transform.position.z + startPosZ - i * segmentSize * changeZ * 2), Quaternion.identity);
                 segment.transform.parent = transform;
                 segment.transform.Rotate(0, angle, 0);
             }

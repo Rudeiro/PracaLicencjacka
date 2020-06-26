@@ -6,7 +6,8 @@ public class Item : MonoBehaviour
 {
     public enum ItemType
     {
-        pistol
+        pistol,
+        firstAid
     }
 
     [SerializeField]

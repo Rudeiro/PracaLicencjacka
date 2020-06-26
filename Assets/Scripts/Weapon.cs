@@ -47,7 +47,7 @@ public class Weapon : MonoBehaviour
 
     public bool Shoot()
     {
-        if (readyToShoot && transform != null)
+        if (readyToShoot && this != null)
         {
             if (bulletLeft <= 0) shooter.EndEpisode();
             else bulletLeft--;

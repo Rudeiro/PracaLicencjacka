@@ -9,6 +9,12 @@ public class ItemSpawner : MonoBehaviour
 
     public GameObject Item;
 
+    private void Start()
+    {
+        GetComponentInParent<Room>().itemSpawners.Add(this);
+        ResetItemSpawner();
+    }
+
     public void ResetItemSpawner()
     {
         if (Item != null) Destroy(Item);

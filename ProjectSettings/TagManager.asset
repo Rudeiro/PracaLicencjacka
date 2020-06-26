@@ -30,6 +30,7 @@ TagManager:
   - enemy
   - door
   - pistol
+  - firstAid
   layers:
   - Default
   - TransparentFX

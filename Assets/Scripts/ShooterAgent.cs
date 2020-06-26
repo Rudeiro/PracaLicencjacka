@@ -30,6 +30,7 @@ public class ShooterAgent : Agent
     public GameObject pickUpObject;
     new private Rigidbody rigidbody;
     private WorldArea worldArea;
+    public int ownedHeals;
     int movementEnabled;
 
     
@@ -91,11 +92,19 @@ public class ShooterAgent : Agent
         if (vectorAction[3] == 1f)
         {
             Shoot();
+            forwardAmount = 0;
+            sideAmount = 0;
+            turnAmount = 0;
         }
 
         if(vectorAction[4] == 1f)
         {
             PickUp();
+        }
+
+        if (vectorAction[5] == 1f)
+        {
+            Heal(30);
         }
 
         //rotating weapon up and down
@@ -153,6 +162,7 @@ public class ShooterAgent : Agent
         actionsOut[2] = 0f; // rotating agent
         actionsOut[3] = 0f; // shooting
         actionsOut[4] = 0f; // picking up objects
+        actionsOut[5] = 0f; // healing
         // moving sideways
         if (Input.GetKey(KeyCode.W))
         {
@@ -198,6 +208,11 @@ public class ShooterAgent : Agent
             actionsOut[4] = 1f;
         }
 
+        if (Input.GetKey(KeyCode.H))
+        {
+            actionsOut[5] = 1f;
+        }
+
 
 
         /*if (Input.GetKey(KeyCode.A))
@@ -229,17 +244,19 @@ public class ShooterAgent : Agent
         {
             EquipWeapon(Instantiate(weaponPrefab));
         }
-        
-        health = 100;
+        ownedHeals = 0;
+        health = 20;
     }
 
     
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        
-       
+
+        sensor.AddObservation(worldArea.targetsCount);
         sensor.AddObservation(transform.forward);
+        sensor.AddObservation(health);
+        sensor.AddObservation(ownedHeals);
 
         sensor.AddObservation(hasWeapon);
         sensor.AddObservation(weaponHeld == null ? false : weaponHeld.ReadyToShoot);
@@ -269,7 +286,7 @@ public class ShooterAgent : Agent
     {
         //AddReward(-0.05f);
         //AddReward(-m_ResetParams.GetWithDefault("shoot_penalty", 0.0f));
-        if (hasWeapon)
+        if (hasWeapon && weaponHeld != null)
         {
             weaponHeld.Shoot();
         }
@@ -300,8 +317,16 @@ public class ShooterAgent : Agent
             switch (item.Type)
             {
                 case Item.ItemType.pistol:
-                    EquipWeapon(pickUpObject.GetComponent<Weapon>());
-                    
+                    EquipWeapon(pickUpObject.GetComponent<Weapon>());                    
+                    break;
+                case Item.ItemType.firstAid:
+                    if (ownedHeals < 5)
+                    {
+                        AddReward(2f);
+                        ownedHeals++;
+                        Destroy(pickUpObject);
+                        canPickUp = false;
+                    }
                     break;
                 default:
                     break;
@@ -337,5 +362,13 @@ public class ShooterAgent : Agent
         canPickUp = enabled;
     }
 
-
+    private void Heal(int amount)
+    {
+        if (ownedHeals > 0 && health < 100)
+        {
+            AddReward(Mathf.Min(amount, 100 - health) / 10);
+            health += amount;
+            ownedHeals--;
+        }
+    }
 }

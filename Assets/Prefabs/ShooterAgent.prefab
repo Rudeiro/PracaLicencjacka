@@ -51,7 +51,7 @@ MonoBehaviour:
   m_RaysPerDirection: 4
   m_MaxRayDegrees: 160
   m_SphereCastRadius: 0.5
-  m_RayLength: 20
+  m_RayLength: 30
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 4294967291
@@ -203,11 +203,12 @@ MonoBehaviour:
   m_SensorName: RayPerceptionSensor
   m_DetectableTags:
   - pistol
+  - firstAid
   - Untagged
   m_RaysPerDirection: 4
   m_MaxRayDegrees: 160
   m_SphereCastRadius: 0.5
-  m_RayLength: 20
+  m_RayLength: 30
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 4294967291
@@ -229,9 +230,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 8
+    VectorObservationSize: 11
     NumStackedVectorObservations: 1
-    VectorActionSize: 0300000003000000030000000200000002000000
+    VectorActionSize: 030000000300000003000000020000000200000002000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
   m_Model: {fileID: 0}
@@ -281,3 +282,4 @@ MonoBehaviour:
     type: 3}
   canPickUp: 0
   pickUpObject: {fileID: 0}
+  ownedHeals: 0

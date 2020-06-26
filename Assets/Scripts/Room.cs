@@ -8,8 +8,8 @@ public class Room : MonoBehaviour
     List<SpawnArea> spawnAreas;
     [SerializeField]
     WorldArea worldArea;
-    [SerializeField]
-    List<ItemSpawner> itemSpawners;
+    
+    public List<ItemSpawner> itemSpawners;
     
     private int targetsCount;
 

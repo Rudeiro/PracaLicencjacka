@@ -19,8 +19,6 @@ public class Target : MonoBehaviour
             GetComponentInParent<WorldArea>().targetsCount--;
             //Debug.LogError("end");
             Destroy(this.transform.gameObject);
-
-
         }
         
     }

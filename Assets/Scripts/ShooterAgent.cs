@@ -129,10 +129,7 @@ public class ShooterAgent : Agent
         {
             AddReward(-m_ResetParams.GetWithDefault("move_penalty", 0));
         }
-        if (turnAmount != 0)
-        {
-            AddReward(-m_ResetParams.GetWithDefault("rotate_penalty", 0));
-        }
+       
 
         // Apply movement
         rigidbody.MovePosition(transform.position + (transform.forward * forwardAmount * moveSpeed + transform.right * sideAmount * moveSpeed )* Time.fixedDeltaTime);
@@ -245,14 +242,15 @@ public class ShooterAgent : Agent
             EquipWeapon(Instantiate(weaponPrefab));
         }
         ownedHeals = 0;
-        health = 20;
+        GetComponent<DecisionRequester>().DecisionPeriod = (int)m_ResetParams.GetWithDefault("decisions", 3);
+        health = (int)m_ResetParams.GetWithDefault("health", 20);
     }
 
     
 
     public override void CollectObservations(VectorSensor sensor)
     {
-
+        
         sensor.AddObservation(worldArea.targetsCount);
         sensor.AddObservation(transform.forward);
         sensor.AddObservation(health);
@@ -295,13 +293,14 @@ public class ShooterAgent : Agent
     public void DealDamage(int amount, ShooterAgent enemy)
     {
         health -= amount;
-        enemy.AddReward(1.0f);
+        //enemy.AddReward(1.0f);
+        AddReward(-0.5f);
         if (health <= 0)
         {
             //Debug.LogError("killed");
-            enemy.AddReward(10f);
+            //enemy.AddReward(10f);
             AddReward(-10f);
-            enemy.EndEpisode();
+            //enemy.EndEpisode();
             EndEpisode();
         }
 
@@ -338,7 +337,7 @@ public class ShooterAgent : Agent
     {
         if(weaponHeld == null)
         {
-            AddReward(5f);
+            AddReward(10f);
             ItemSpawner itemSpawner = weapon.GetComponentInParent<ItemSpawner>();
             if (itemSpawner != null)
             {

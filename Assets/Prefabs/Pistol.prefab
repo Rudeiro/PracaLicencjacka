@@ -120,10 +120,10 @@ MonoBehaviour:
   - enemy
   - pistol
   - Untagged
-  m_RaysPerDirection: 2
-  m_MaxRayDegrees: 40
+  m_RaysPerDirection: 1
+  m_MaxRayDegrees: 60
   m_SphereCastRadius: 0.1
-  m_RayLength: 20
+  m_RayLength: 40
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 4294967291

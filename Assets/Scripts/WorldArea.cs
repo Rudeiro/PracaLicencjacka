@@ -15,58 +15,87 @@ public class WorldArea : MonoBehaviour
     [SerializeField]
     public TextMeshPro cumulativeRewardTextRew;
     [SerializeField]
-    public TextMeshPro cumulativeRewardTextRew2;
-    [SerializeField]
-    Target targetPrefab;
+    public TextMeshPro cumulativeRewardTextRew2;    
     [SerializeField]
     List<SpawnArea> spawnAreas;
     [SerializeField]
     bool selfPlay;
     [SerializeField]
     List<Room> rooms;
-    private Target target;
+    [SerializeField]
+    List<TimeRespawner> timeRespawners;
+    [SerializeField]
+    int TargetsToReset;
+    [SerializeField]
+    int DamageToAgent;
+    [SerializeField]
+    float DealDamageRate;
+
 
     public int targetsCount;
     private float dist;
-    
+    private float timeToDamage;
 
     public void ResetArea()
     {
+
+        timeToDamage = 0;
         targetsCount = 0;
-        for(int i = 0; i < rooms.Count; i++)
+        // targetsCount = 0;
+        /* for(int i = 0; i < rooms.Count; i++)
+         {
+             if(i < shooter.m_ResetParams.GetWithDefault("rooms_unlocked", 9))
+             {
+                 rooms[i].gameObject.SetActive(true);
+                 rooms[i].ResetRoom();
+                 targetsCount += rooms[i].TargetsCount;
+             }
+         }*/
+        foreach (var timeRespawner in timeRespawners)
         {
-            if(i < shooter.m_ResetParams.GetWithDefault("rooms_unlocked", 9))
-            {
-                rooms[i].gameObject.SetActive(true);
-                rooms[i].ResetRoom();
-                targetsCount += rooms[i].TargetsCount;
-            }
+            timeRespawner.ResetRespawner();
         }
-        shooter.transform.position = new Vector3(transform.position.x - 20, transform.position.y + 0.5f, transform.position.z + 20);
+        shooter.transform.position = new Vector3(transform.position.x , transform.position.y + 0.5f, transform.position.z );
        /* foreach (var spawnArea in spawnAreas)
         {
             spawnArea.ResetSpawnArea();
         }*/
-        dist = shooter.m_ResetParams.GetWithDefault("distance", 5);
-        if(selfPlay)
+        //dist = shooter.m_ResetParams.GetWithDefault("distance", 5);
+        /*if(selfPlay)
         {
             shooter.transform.position = new Vector3(transform.position.x - dist, transform.position.y + 0.5f, transform.position.z - dist);
             shooter2.transform.position = new Vector3(transform.position.x + dist, transform.position.y + 0.5f, transform.position.z + dist);
-        }
-    }   
-    
-    private void Update()
-    {        
-        if(targetsCount <= 0 && !selfPlay)
+        }*/
+    }
+
+    private void FixedUpdate()
+    {
+        /*if(targetsCount <= 0 && !selfPlay)
         {
             shooter.EndEpisode();
+        }*/
+        if (targetsCount >= TargetsToReset)
+        {
+            targetsCount = 0;
+            shooter.EndEpisode();
         }
-
-         cumulativeRewardTextRew.text = shooter.GetCumulativeReward().ToString("0.00");
-        if(selfPlay) cumulativeRewardTextRew2.text = shooter2.GetCumulativeReward().ToString("0.00");
+        cumulativeRewardTextRew.text = shooter.GetCumulativeReward().ToString("0.00");
+        if (selfPlay) cumulativeRewardTextRew2.text = shooter2.GetCumulativeReward().ToString("0.00");
 
         if (selfPlay) cumulativeRewardText.text = shooter.Health.ToString("0.0");
-        if(selfPlay) cumulativeRewardText2.text = shooter2.Health.ToString("0.0");
-        
+        if (selfPlay) cumulativeRewardText2.text = shooter2.Health.ToString("0.0");
+        if (shooter.m_ResetParams.GetWithDefault("receive_damage", 1) == 1)
+        {
+            if (timeToDamage > DealDamageRate)
+            {
+                shooter.DealDamage(10, null);
+                timeToDamage = 0;
+            }
+            else
+            {
+                timeToDamage += Time.fixedDeltaTime;
+
+            }
+        }
     }
 }

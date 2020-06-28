@@ -16,7 +16,7 @@ public class Target : MonoBehaviour
             shooter.AddReward(10f);
 
             //shooter.EndEpisode();
-            GetComponentInParent<WorldArea>().targetsCount--;
+            GetComponentInParent<WorldArea>().targetsCount++;
             //Debug.LogError("end");
             Destroy(this.transform.gameObject);
         }

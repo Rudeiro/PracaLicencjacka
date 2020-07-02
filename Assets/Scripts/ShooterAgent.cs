@@ -337,7 +337,7 @@ public class ShooterAgent : Agent
     {
         if(weaponHeld == null)
         {
-            AddReward(10f);
+            AddReward(15f);
             ItemSpawner itemSpawner = weapon.GetComponentInParent<ItemSpawner>();
             if (itemSpawner != null)
             {
@@ -367,6 +367,7 @@ public class ShooterAgent : Agent
         {
             AddReward(Mathf.Min(amount, 100 - health) / 10);
             health += amount;
+            health = Mathf.Min(100, health);
             ownedHeals--;
         }
     }

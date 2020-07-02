@@ -10,10 +10,10 @@ public class Target : MonoBehaviour
     public void DealDamage(int amount, ShooterAgent shooter)
     {
         health -= amount;
-        shooter.AddReward(1f);
+        shooter.AddReward(8f);
         if(health <= 0)
         {
-            shooter.AddReward(10f);
+            shooter.AddReward(15f);
 
             //shooter.EndEpisode();
             GetComponentInParent<WorldArea>().targetsCount++;

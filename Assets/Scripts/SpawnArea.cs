@@ -25,7 +25,7 @@ public class SpawnArea : MonoBehaviour
     {
         for(int i = 0; i < targetsCount; i++)
         {
-            targetSize = GetComponentInParent<Room>().WorldArea.shooter.m_ResetParams.GetWithDefault("target_size", 1f);
+            targetSize = GetComponentInParent<Room>().WorldArea.shooter.m_ResetParams.GetWithDefault("target_size", 1.5f);
             float x = UnityEngine.Random.Range((int)xRange.x, (int)xRange.y) + transform.position.x;
             //float y = UnityEngine.Random.Range((int)yRange.x, (int)yRange.y) + transform.position.y;
             float z = UnityEngine.Random.Range((int)zRange.x, (int)zRange.y) + transform.position.z;

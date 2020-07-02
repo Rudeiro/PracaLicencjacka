@@ -272,7 +272,7 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 5000
   moveSpeed: 5
-  turnSpeed: 45
+  turnSpeed: 90
   upRotateSpeed: 30
   aimSpeed: 5
   weaponHeld: {fileID: 0}

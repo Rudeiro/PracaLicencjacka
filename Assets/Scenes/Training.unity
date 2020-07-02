@@ -1157,7 +1157,8 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Model
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5022602860645237092, guid: 94110576c8dcdd1459af1d78384eaea5,
+        type: 3}
     - target: {fileID: 4417776735345410673, guid: fb674277490a53e4b84d0960ea764221,
         type: 3}
       propertyPath: m_Model
@@ -1168,6 +1169,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 6.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 7304796747595544352, guid: fb674277490a53e4b84d0960ea764221,
+        type: 3}
+      propertyPath: TimeToRespawn
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7604550267186490092, guid: fb674277490a53e4b84d0960ea764221,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7837857980677614523, guid: fb674277490a53e4b84d0960ea764221,
         type: 3}

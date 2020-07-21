@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
     private Rigidbody rigidbody;
 
     public int bulletDamage;
-    public ShooterAgent bulletOwner;
+    public InfinityAgent bulletOwner;
 
     [SerializeField]
     float bulletRange = 5f;
@@ -36,16 +36,28 @@ public class Bullet : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.CompareTag("enemy"))
+        if (other.transform.CompareTag("enemy") && bulletOwner != null)
         {
             //Debug.LogError("hit");
             other.gameObject.GetComponent<Target>().DealDamage(bulletDamage, bulletOwner);
             Destroy(transform.gameObject);
         }
-        if (other.transform.CompareTag("Untagged"))
+        if (other.transform.CompareTag("destroyableObstacle"))
+        {
+            //Debug.LogError("hit");
+            other.gameObject.GetComponent<Target>().DealDamage(bulletDamage, bulletOwner);
+            Destroy(transform.gameObject);
+        }
+        if (other.transform.CompareTag("Untagged") || other.transform.CompareTag("obstacle"))
         {
             // bulletOwner.AddReward(-0.05f);
-            bulletOwner.AddReward(-bulletOwner.m_ResetParams.GetWithDefault("miss_penalty", 0.05f));
+            //bulletOwner.AddReward(-bulletOwner.m_ResetParams.GetWithDefault("miss_penalty", 0.01f));
+            Destroy(transform.gameObject);
+        }
+        if (other.transform.CompareTag("Player") && bulletOwner == null) 
+        {
+            //Debug.LogError("hit");
+            other.gameObject.GetComponent<InfinityAgent>().DealDamage(bulletDamage, null);
             Destroy(transform.gameObject);
         }
 

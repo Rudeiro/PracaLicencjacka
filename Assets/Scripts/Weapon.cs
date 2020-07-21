@@ -10,15 +10,19 @@ public class Weapon : MonoBehaviour
     float weaponBulletSpeed = 10;
     [SerializeField]
     float timeToReload = 1f;
+    [SerializeField]
+    float fireRate;
     public int weaponDamage = 50;
     [SerializeField]
     int magCapacity;
     private bool readyToShoot = true;
     private float reloadingTime = 1f;
+    private float timeToNextBullet = 1f;
+    private bool reloading = false;
     
     public int bulletLeft;
     
-    public ShooterAgent shooter;
+    public InfinityAgent shooter;
 
     private List<Bullet> bullets = new List<Bullet>();
 
@@ -33,23 +37,36 @@ public class Weapon : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if(reloadingTime >= timeToReload && !readyToShoot)
+        if(timeToNextBullet >= fireRate && !readyToShoot)
         {
             readyToShoot = true;
         }
         else
         {
-            reloadingTime += Time.deltaTime;
+            timeToNextBullet += Time.fixedDeltaTime;
+        }
+        if (reloadingTime >= timeToReload && reloading)
+        {
+            reloading = false;
+            bulletLeft = magCapacity;
+        }
+        else
+        {
+            reloadingTime += Time.fixedDeltaTime;
         }
     }
 
     public bool Shoot()
     {
-        if (readyToShoot && this != null)
+        if (readyToShoot && this != null && !reloading)
         {
-            if (bulletLeft <= 0) shooter.EndEpisode();
+            if (bulletLeft <= 0)
+            {
+                reloadingTime = 0;
+                reloading = true;
+            }
             else bulletLeft--;
             Bullet bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
             
@@ -59,7 +76,8 @@ public class Weapon : MonoBehaviour
             bullet.transform.rotation = transform.rotation;
 
             bullets.Add(bullet);
-            reloadingTime = 0f;
+            timeToNextBullet = 0;
+            //reloadingTime = 0f;
             readyToShoot = false;
             return true;
         }
@@ -77,8 +95,8 @@ public class Weapon : MonoBehaviour
         }
         bullets = new List<Bullet>();
         //bulletLeft = magCapacity;
-        weaponDamage = (int)shooter.m_ResetParams.GetWithDefault("weapon_damage", 50);
-        bulletLeft = (int)shooter.m_ResetParams.GetWithDefault("bullets_count", 50);
+        //weaponDamage = (int)shooter.m_ResetParams.GetWithDefault("weapon_damage", 10);
+        bulletLeft = magCapacity;
         readyToShoot = true;
         reloadingTime = timeToReload;
     }
@@ -90,5 +108,10 @@ public class Weapon : MonoBehaviour
             other.GetComponent<ShooterAgent>().EquipWeapon(this);
         }
     }*/
-    
+    public void ChangeWeaponParameters(float rate, int capacity, int health)
+    {
+        magCapacity = capacity;
+        fireRate = rate;
+        //GetComponentInParent<Target>().ChangeHealth(health);
+    }
 }

@@ -347,7 +347,7 @@ public class ShooterAgent : Agent
             weaponHeld.transform.parent = transform;
             weaponHeld.transform.localPosition = new Vector3(0.65f, 0, 0);
             weaponHeld.transform.eulerAngles = transform.eulerAngles;            
-            weaponHeld.shooter = this;
+            //weaponHeld.shooter = this;
             weaponHeld.GetComponent<BoxCollider>().enabled = false;
             weaponHeld.WeaponReset();
             pickUpObject = null;

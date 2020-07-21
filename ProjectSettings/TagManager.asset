@@ -32,6 +32,10 @@ TagManager:
   - pistol
   - firstAid
   - bullet
+  - obstacleDestroyer
+  - obstacle
+  - reward
+  - destroyableObstacle
   layers:
   - Default
   - TransparentFX
@@ -41,7 +45,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Reward
   - 
   - 
   - 

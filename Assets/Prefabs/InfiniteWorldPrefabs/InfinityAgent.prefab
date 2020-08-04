@@ -64,7 +64,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1055785913969517168}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -8, y: 0, z: 12}
+  m_LocalPosition: {x: -8, y: 0, z: 14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7728354658274334473}
@@ -88,6 +88,7 @@ MonoBehaviour:
   - destroyableObstacle
   - bullet
   - firstAid
+  - enemy
   - Untagged
   m_RaysPerDirection: 0
   m_MaxRayDegrees: 70
@@ -126,7 +127,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1538579314527865819}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 8, y: 0, z: 12}
+  m_LocalPosition: {x: 8, y: 0, z: 14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4308592105808519101}
@@ -150,6 +151,7 @@ MonoBehaviour:
   - destroyableObstacle
   - bullet
   - firstAid
+  - enemy
   - Untagged
   m_RaysPerDirection: 0
   m_MaxRayDegrees: 70
@@ -281,7 +283,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 7500
+  MaxStep: 50000
   moveSpeed: 10
   turnSpeed: 180
   aimSpeed: 5
@@ -311,7 +313,7 @@ MonoBehaviour:
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
-  m_BehaviorName: InfinityAgent
+  m_BehaviorName: behaviour
   TeamId: 0
   m_UseChildSensors: 1
 --- !u!114 &1438740110640629147
@@ -1485,7 +1487,7 @@ MonoBehaviour:
   - destroyableObstacle
   - bullet
   - firstAid
-  - Untagged
+  - Player
   m_RaysPerDirection: 0
   m_MaxRayDegrees: 70
   m_SphereCastRadius: 1
@@ -1582,6 +1584,11 @@ PrefabInstance:
       propertyPath: timeToReload
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2209575696920776140, guid: 77ad71d390350c2468f70ad1fa152627,
+        type: 3}
+      propertyPath: weaponBulletSpeed
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 6283592560369362601, guid: 77ad71d390350c2468f70ad1fa152627,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1595,7 +1602,7 @@ PrefabInstance:
     - target: {fileID: 6283592560369362601, guid: 77ad71d390350c2468f70ad1fa152627,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.308
+      value: 0.83
       objectReference: {fileID: 0}
     - target: {fileID: 6283592560369362601, guid: 77ad71d390350c2468f70ad1fa152627,
         type: 3}
@@ -1636,6 +1643,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283592560369362601, guid: 77ad71d390350c2468f70ad1fa152627,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7467488320612663654, guid: 77ad71d390350c2468f70ad1fa152627,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7467488320612663654, guid: 77ad71d390350c2468f70ad1fa152627,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[5]
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 7467488320612663654, guid: 77ad71d390350c2468f70ad1fa152627,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[4]
+      value: enemy
       objectReference: {fileID: 0}
     - target: {fileID: 9109658590079479267, guid: 77ad71d390350c2468f70ad1fa152627,
         type: 3}

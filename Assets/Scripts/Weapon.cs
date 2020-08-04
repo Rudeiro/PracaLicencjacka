@@ -108,10 +108,12 @@ public class Weapon : MonoBehaviour
             other.GetComponent<ShooterAgent>().EquipWeapon(this);
         }
     }*/
-    public void ChangeWeaponParameters(float rate, int capacity, int health)
+    public void ChangeWeaponParameters(float rate, int capacity, int health, float speed)
     {
         magCapacity = capacity;
         fireRate = rate;
+        GetComponentInParent<EnemyAgent>().Health = health;
+        GetComponentInParent<EnemyAgent>().MoveSpeed = speed;
         //GetComponentInParent<Target>().ChangeHealth(health);
     }
 }

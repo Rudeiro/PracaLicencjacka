@@ -6,7 +6,7 @@ using TMPro;
 public class InfiniteWorldArea : MonoBehaviour
 {
     [SerializeField]
-    InfinityAgent agent;
+    InfinityAgent agent;    
     [SerializeField]
     InfiniteSpawner spawner;
     [SerializeField]
@@ -27,6 +27,8 @@ public class InfiniteWorldArea : MonoBehaviour
     public void ResetArea()
     {
         agent.transform.position = new Vector3(transform.position.x + 2.5f, transform.position.y + 0.5f, transform.position.z -4.5f);
+        //GameObject target = Instantiate(movingTargetPrefab, new Vector3(transform.position.x + 2.5f, transform.position.y + 0.5f, transform.position.z + 6f), Quaternion.identity);
+       // target.transform.parent = transform;
         spawner.ResetSpawner();
         lvlDistChange = 100f;
         lvlDistCounter = 0;
@@ -52,15 +54,18 @@ public class InfiniteWorldArea : MonoBehaviour
         }
         if(lvlDistCounter >= lvlDistChange)
         {
-            agent.speed *= 1.1f;
-            spawner.ChangeSpawnRateAndSpeed(1.1f);
+            agent.speed *= 1.2f;
+            spawner.ChangeSpawnRateAndSpeed(1.2f);
             lvlDistCounter = 0;
-            lvlDistChange *= 1.1f;
-            spawner.ChangeEnemyParameters(1.1f, 1.1f);
+            lvlDistChange *= 1.2f;
+            spawner.ChangeEnemyParameters(1.2f, 1.2f, 1.2f);
         }
         else
         {
-            lvlDistCounter += agent.speed * Time.fixedDeltaTime;
+            if (spawner.StopSpawning == false)
+            {
+                lvlDistCounter += agent.speed * Time.fixedDeltaTime;
+            }
         }
     }
 }

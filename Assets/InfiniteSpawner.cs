@@ -16,6 +16,8 @@ public class InfiniteSpawner : MonoBehaviour
     int initialMagCapacity;
     [SerializeField]
     int initialEnemyHealth;
+    [SerializeField]
+    float initialEnemySpeed;
     private bool stopSpawning = false;
     private List<float> timesPassed = new List<float>();
     private float obstacleSpeed = 5f;
@@ -23,6 +25,7 @@ public class InfiniteSpawner : MonoBehaviour
     private float fireRate;
     private int magCapacity;
     private int enemyHealth;
+    private float enemySpeed;
 
     public bool StopSpawning { get { return stopSpawning; } }
 
@@ -44,9 +47,9 @@ public class InfiniteSpawner : MonoBehaviour
         {
             Destroy(obstacle.gameObject);
         }
-        foreach (var enemy in GetComponentsInChildren<Enemy>())
+        foreach (var enemy in GetComponentsInChildren<EnemyAgent>())
         {
-            enemy.Weapon.WeaponReset();
+            enemy.WeaponHeld.WeaponReset();
             Destroy(enemy.gameObject);
         }
         fireRate = initialFireRate;
@@ -54,6 +57,7 @@ public class InfiniteSpawner : MonoBehaviour
         stopSpawning = false;
         obstacleSpeed = 5;
         enemyHealth = initialEnemyHealth;
+        enemySpeed = initialEnemySpeed;
         //obstacleSpawnRate = 1;
         for(int i = 0; i < initialObstaclesSpawnRate.Count; i++)
         {
@@ -89,17 +93,20 @@ public class InfiniteSpawner : MonoBehaviour
     private void SpawnObstacle(GameObject obs)
     {
         
-        if(obs.GetComponent<Enemy>() != null)
-        {
-            stopSpawning = true;
-            obs.GetComponent<Enemy>().Weapon.ChangeWeaponParameters(fireRate, magCapacity, enemyHealth);
-        }
+        
         int xPos = UnityEngine.Random.Range((int)spawnRange.x, (int)spawnRange.y);
         GameObject obstacle = Instantiate(obs, new Vector3(transform.position.x + xPos, transform.position.y, transform.position.z), Quaternion.identity);
         obstacle.transform.parent = transform;
         if (obstacle.GetComponent<Obstacle>() != null)
         {
             obstacle.GetComponent<Obstacle>().speed = obstacleSpeed;
+        }
+        if (obstacle.GetComponent<EnemyAgent>() != null)
+        {
+            stopSpawning = true;
+            obstacle.GetComponent<EnemyAgent>().WeaponHeld.ChangeWeaponParameters(fireRate, magCapacity, enemyHealth, enemySpeed);
+            obstacle.transform.Rotate(0, 180, 0);
+            obstacle.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 6.5f);
         }
     }
 
@@ -116,11 +123,12 @@ public class InfiniteSpawner : MonoBehaviour
         }
     }
 
-    public void ChangeEnemyParameters(float rateMultiplier, float capacityMultiplier)
+    public void ChangeEnemyParameters(float rateMultiplier, float capacityMultiplier, float speedMultiplier)
     {
         fireRate /= rateMultiplier;
         magCapacity = (int) Mathf.Ceil( magCapacity*capacityMultiplier);
-        enemyHealth *= 2;
+        enemyHealth = (int)Mathf.Ceil(enemyHealth * 1.5f);
+        enemySpeed *= speedMultiplier;
 
     }
 

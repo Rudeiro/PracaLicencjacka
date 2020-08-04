@@ -4,7 +4,7 @@ using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 
-public class InfinityAgent : Agent
+public class EnemyAgent : Agent
 {
     [SerializeField]
     float moveSpeed = 5;
@@ -26,17 +26,18 @@ public class InfinityAgent : Agent
     private float distanceTraveled;
 
     public float DistanceTraveled { get { return distanceTraveled; } }
-
+    public Weapon WeaponHeld { get { return weaponHeld; } }
 
     public EnvironmentParameters m_ResetParams;
 
-    public int Health { get { return health; } }
+    public int Health { get { return health; }  set { health = value; } }
+    public float MoveSpeed { get { return moveSpeed; } set { moveSpeed = value; } }
 
     public override void Initialize()
     {
         base.Initialize();
         rigidbody = GetComponent<Rigidbody>();
-        worldArea = GetComponentInParent<InfiniteWorldArea>();
+        //worldArea = GetComponentInParent<InfiniteWorldArea>();
         m_ResetParams = Academy.Instance.EnvironmentParameters;
     }
 
@@ -139,10 +140,10 @@ public class InfinityAgent : Agent
             actionsOut[1] = 1f;
         }
 
-        if (Input.GetKey(KeyCode.H))
+       /* if (Input.GetKey(KeyCode.H))
         {
             actionsOut[2] = 1f;
-        }
+        }*/
 
 
 
@@ -166,19 +167,23 @@ public class InfinityAgent : Agent
         //worldArea.ResetArea();
         distanceTraveled = 0;
         ownedHeals = 0;
-        speed = 5;
+        moveSpeed = 2;
         GetComponent<DecisionRequester>().DecisionPeriod = (int)m_ResetParams.GetWithDefault("decisions", 5);
         health = (int)m_ResetParams.GetWithDefault("health", 60);
-        worldArea.ResetArea();
+        //worldArea.ResetArea();
         weaponHeld.WeaponReset();
     }
 
     private void FixedUpdate()
     {
-        if (worldArea.Spawner.StopSpawning == false)
+       /* if (worldArea.Spawner.StopSpawning == false)
         {
             distanceTraveled += Time.fixedDeltaTime * speed;
-        }
+        }*/
+       /* if(transform.position.z < 6.5f)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + speed * Time.fixedDeltaTime);
+        }*/
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -186,24 +191,24 @@ public class InfinityAgent : Agent
 
         //sensor.AddObservation(worldArea.targetsCount);
 
-        sensor.AddObservation(health);
+        //sensor.AddObservation(health);
         sensor.AddObservation(weaponHeld.TimeToReload);
         sensor.AddObservation(weaponHeld.bulletLeft);
-        sensor.AddObservation(ownedHeals);
+       // sensor.AddObservation(ownedHeals);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("reward"))
         {
-            AddReward(0.01f);
+            AddReward(0.1f);
         }
         if (other.gameObject.CompareTag("firstAid"))
         {
             //AddReward(0.1f);
             if(ownedHeals < 3)
             {
-                AddReward(0.08f);
+                AddReward(0.05f);
                 ownedHeals++;
                 Destroy(other.gameObject);
             }
@@ -219,13 +224,16 @@ public class InfinityAgent : Agent
     {
         health -= amount;
         AddReward(-1.0f*amount/100);
-        //enemy.AddReward(2*1.0f * amount / 100);
+        enemy.AddReward(0.03f);
         if (health <= 0)
         {
-            AddReward(-1f);
-            //enemy.AddReward(1f);
-            //enemy.EndEpisode();
-            EndEpisode();
+            /* AddReward(-1f);
+             enemy.AddReward(1f);
+             enemy.EndEpisode();
+             EndEpisode();*/
+            enemy.AddReward(0.1f);
+            GetComponentInParent<InfiniteSpawner>().ResumeSpawning();
+            Destroy(transform.gameObject);
         }
     }
 

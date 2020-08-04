@@ -9,15 +9,17 @@ public class Target : MonoBehaviour
 
     public void DealDamage(int amount, InfinityAgent shooter)
     {
-        health -= amount;        
-        if(health <= 0)
+        health -= amount;
+        shooter?.AddReward(0.005f);
+        if (health <= 0)
         {
-            shooter?.AddReward(0.05f); 
-            if(GetComponent<Enemy>() != null)
+            shooter?.AddReward(0.001f); 
+           /* if(GetComponent<EnemyAgent>() != null)
             {
                 shooter?.AddReward(0.1f);
                 GetComponentInParent<InfiniteSpawner>().ResumeSpawning();
-            }
+            }*/
+            //shooter.EndEpisode();
             Destroy(this.transform.gameObject);
             
         }

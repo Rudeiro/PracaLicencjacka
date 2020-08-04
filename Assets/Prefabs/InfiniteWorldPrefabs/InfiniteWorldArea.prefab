@@ -569,7 +569,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5270630416542885692}
   - component: {fileID: 3570543682669929427}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LeftBorder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -584,7 +584,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2574957349651031557}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5, y: 0, z: -4}
+  m_LocalPosition: {x: -0.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 67999101867462237}
@@ -601,7 +601,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 2}
+  m_Size: {x: 1, y: 1, z: 30}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3263930466216842085
 GameObject:
@@ -681,7 +681,7 @@ MonoBehaviour:
   obstaclePrefabs:
   - {fileID: 1151894345254767310, guid: feaf6fae966a9b846a63331bb529965e, type: 3}
   - {fileID: 1151894345254767310, guid: 8238f8c04fa02754fa7b9dbded470970, type: 3}
-  - {fileID: 1151894345254767310, guid: de3211360a5b061428a44e36e9e5c58b, type: 3}
+  - {fileID: 316028986783632506, guid: 818b2ac46af2d9641a8f735d36264369, type: 3}
   - {fileID: 7358603478158385404, guid: 92b2df31ea8e5764eb1653be3a23c426, type: 3}
   initialObstaclesSpawnRate:
   - 1
@@ -691,6 +691,8 @@ MonoBehaviour:
   spawnRange: {x: 0, y: 5}
   initialFireRate: 0.25
   initialMagCapacity: 5
+  initialEnemyHealth: 50
+  initialEnemySpeed: 2
 --- !u!1 &3779871259355721421
 GameObject:
   m_ObjectHideFlags: 0
@@ -905,7 +907,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8867876228287653243}
   - component: {fileID: 2356959034354991943}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RightBorder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -920,7 +922,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6705252447652346867}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.5, y: 0, z: -4}
+  m_LocalPosition: {x: 5.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 67999101867462237}
@@ -937,7 +939,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 2}
+  m_Size: {x: 1, y: 1, z: 30}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7744029135536692968
 GameObject:

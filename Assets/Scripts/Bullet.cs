@@ -39,7 +39,7 @@ public class Bullet : MonoBehaviour
         if (other.transform.CompareTag("enemy") && bulletOwner != null)
         {
             //Debug.LogError("hit");
-            other.gameObject.GetComponent<Target>().DealDamage(bulletDamage, bulletOwner);
+            other.gameObject.GetComponent<EnemyAgent>().DealDamage(bulletDamage, bulletOwner);
             Destroy(transform.gameObject);
         }
         if (other.transform.CompareTag("destroyableObstacle"))
@@ -54,10 +54,10 @@ public class Bullet : MonoBehaviour
             //bulletOwner.AddReward(-bulletOwner.m_ResetParams.GetWithDefault("miss_penalty", 0.01f));
             Destroy(transform.gameObject);
         }
-        if (other.transform.CompareTag("Player") && bulletOwner == null) 
+        if (other.transform.CompareTag("Player")) 
         {
             //Debug.LogError("hit");
-            other.gameObject.GetComponent<InfinityAgent>().DealDamage(bulletDamage, null);
+            other.gameObject.GetComponent<InfinityAgent>().DealDamage(bulletDamage, bulletOwner);
             Destroy(transform.gameObject);
         }
 
